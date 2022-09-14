@@ -43,9 +43,9 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -73,9 +73,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'assignment3.wsgi.application'
 
+# REST_FRAMEWORK = {
+#     'DEFAULT_PERMISSION_CLASSES':
+#         ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+# }
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES':
         ('rest_framework.permissions.IsAuthenticatedOrReadOnly',),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+   ),
+#     'DEFAULT_PERMISSION_CLASSES': (
+#        'rest_framework.permissions.IsAdminUser'
+#    ),
+#    'DEFAULT_AUTHENTICATION_CLASSES': (
+#        'rest_framework.authentication.TokenAuthentication',
+#    ),
 }
 
 # Database
@@ -107,8 +122,11 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-CORS_ORIGIN_ALLOW_ALL=True
-
+# CORS_ORIGIN_ALLOW_ALL=True
+# CORS_ORIGIN_WHITELIST = (
+#     'http://localhost:3000',  # React default port = 3000
+#     'http://localhost:8000',  # Django default port = 8000
+# )
 
 # Internationalization
 # https://docs.djangoproject.com/en/4.0/topics/i18n/
@@ -131,3 +149,7 @@ STATIC_URL = 'static/'
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+
+
+CORS_ORIGIN_ALLOW_ALL=True
